@@ -1,11 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"github.com/Unknwon/goconfig"
 	"github.com/Unknwon/macaron"
-	// "github.com/macaron-contrib/session"
-	// "log"
-	"fmt"
 	"strconv"
 )
 
@@ -14,10 +12,8 @@ func main() {
 	m.Get("/", func() string {
 		return "Hello world!"
 	})
-	// times, _ := conf.Int("app", "times")
+
 	m.Get("/:username/:leixing", func(ctx *macaron.Context) string {
-		// return "Hello " + ctx.Params(":name")
-		//leixing = query,add,remove,stop
 		leixing := ctx.Params(":leixing")
 		username := ctx.Params(":username")
 		conf, _ := goconfig.LoadConfigFile("data.ini")
@@ -39,8 +35,6 @@ func main() {
 		return ""
 	})
 	m.Get("/:username/:leixing/:num/:password", func(ctx *macaron.Context) string {
-		// return "Hello " + ctx.Params(":name")
-		//leixing = query,add,remove,stop
 		leixing := ctx.Params(":leixing")
 		snum := ctx.Params(":num")
 		username := ctx.Params(":username")
@@ -64,9 +58,7 @@ func main() {
 			}
 			return "now is " + stimes
 		} else if leixing == "add" {
-			// fmt.Println(num)
 			times = times + num
-			// fmt.Println(times)
 			stimes := strconv.Itoa(times)
 			conf.SetValue(username, "times", stimes)
 			goconfig.SaveConfigFile(conf, "data.ini")
